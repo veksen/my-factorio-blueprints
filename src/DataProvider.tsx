@@ -1,30 +1,30 @@
 import React, { useState } from "react"
-import { Build } from "./types"
+import { BuildI } from "./types"
 
 interface DataProviderProps {
   children: React.ReactNode
 }
 
-const defaultBuilds: Build[] = [
+const defaultBuilds: BuildI[] = [
   { name: "build1", blueprint: "adadwadwadwdaw", state: "EARLY_GAME", categories: ["BALANCER"] },
   { name: "build2", blueprint: "asdf", state: "LATE_GAME", categories: ["SMELTING"] }
 ]
 
 export interface DataContextInterface {
   state: {
-    builds: Build[]
+    builds: BuildI[]
   }
   actions: {
-    init: (initialBuilds: Build[]) => void
+    init: (initialBuilds: BuildI[]) => void
   }
 }
 
 export const DataContext = React.createContext<DataContextInterface | null>(null)
 
 export function DataProvider({ children }: DataProviderProps): JSX.Element {
-  const [builds, setBuilds] = useState<Build[]>(defaultBuilds)
+  const [builds, setBuilds] = useState<BuildI[]>(defaultBuilds)
 
-  function init(initialBuilds: Build[]): void {
+  function init(initialBuilds: BuildI[]): void {
     setBuilds(initialBuilds)
   }
 

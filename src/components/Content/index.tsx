@@ -1,7 +1,8 @@
 import React from "react"
 import { useData } from "../../hooks/useData"
 import { useSearch } from "../../hooks/useSearch"
-import { Build } from "../../types"
+import { BuildI } from "../../types"
+import { Build } from "../Build"
 import * as SC from "./styles"
 
 export function Content(): JSX.Element {
@@ -10,8 +11,8 @@ export function Content(): JSX.Element {
 
   function filteredBuilds(
     state: { input: string; stateFilters: string[]; categoryFilters: string[] },
-    builds: Build[]
-  ): Build[] {
+    builds: BuildI[]
+  ): BuildI[] {
     const { input: search, stateFilters, categoryFilters } = state
 
     if (!search && !stateFilters.length && !categoryFilters.length) {
@@ -41,9 +42,7 @@ export function Content(): JSX.Element {
   return (
     <SC.ContentWrapper>
       {filteredBuilds(searchState, dataState.builds).map(build => (
-        <div key={build.name}>
-          {build.name} - {build.categories.join(", ")}
-        </div>
+        <Build key={build.name} build={build} />
       ))}
     </SC.ContentWrapper>
   )
