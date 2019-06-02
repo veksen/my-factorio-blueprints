@@ -1,7 +1,7 @@
 import React from "react"
-import { Build } from "../../DataProvider"
 import { useData } from "../../hooks/useData"
 import { useSearch } from "../../hooks/useSearch"
+import { Build } from "../../types"
 import * as SC from "./styles"
 
 export function Content(): JSX.Element {
@@ -9,12 +9,12 @@ export function Content(): JSX.Element {
   const { state: dataState } = useData()
 
   function filteredBuilds(
-    state: { input: string; stateFilters: string[]; typeFilters: string[] },
+    state: { input: string; stateFilters: string[]; categoryFilters: string[] },
     builds: Build[]
   ): Build[] {
-    const { input: search, stateFilters, typeFilters } = state
+    const { input: search, stateFilters, categoryFilters } = state
 
-    if (!search && !stateFilters.length && !typeFilters.length) {
+    if (!search && !stateFilters.length && !categoryFilters.length) {
       return builds
     }
 
@@ -28,12 +28,12 @@ export function Content(): JSX.Element {
         return stateFilters.includes(build.state)
       })
       .filter(build => {
-        if (!typeFilters.length) {
+        if (!categoryFilters.length) {
           return build
         }
 
         return build.categories.some(category => {
-          return typeFilters.includes(category)
+          return categoryFilters.includes(category)
         })
       })
   }

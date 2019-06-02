@@ -8,12 +8,12 @@ export interface SearchContextInterface {
   state: {
     input: string
     stateFilters: string[]
-    typeFilters: string[]
+    categoryFilters: string[]
   }
   actions: {
     update: (value: string) => void
     toggleStateFilter: (name: string) => void
-    toggleTypeFilter: (name: string) => void
+    toggleCategoryFilter: (name: string) => void
   }
 }
 
@@ -22,7 +22,7 @@ export const SearchContext = React.createContext<SearchContextInterface | null>(
 export function SearchProvider({ children }: SearchProviderProps): JSX.Element {
   const [input, setInput] = useState("")
   const [stateFilters, setStateFilters] = useState<string[]>([])
-  const [typeFilters, setTypeFilters] = useState<string[]>([])
+  const [categoryFilters, setCategoryFilters] = useState<string[]>([])
 
   const update = (value: string): void => {
     setInput(value)
@@ -40,8 +40,8 @@ export function SearchProvider({ children }: SearchProviderProps): JSX.Element {
     setStateFilters(prevState => setFilters(prevState, name))
   }
 
-  const toggleTypeFilter = (name: string): void => {
-    setTypeFilters(prevState => setFilters(prevState, name))
+  const toggleCategoryFilter = (name: string): void => {
+    setCategoryFilters(prevState => setFilters(prevState, name))
   }
 
   return (
@@ -50,12 +50,12 @@ export function SearchProvider({ children }: SearchProviderProps): JSX.Element {
         state: {
           input,
           stateFilters,
-          typeFilters
+          categoryFilters
         },
         actions: {
           update,
           toggleStateFilter,
-          toggleTypeFilter
+          toggleCategoryFilter
         }
       }}
     >

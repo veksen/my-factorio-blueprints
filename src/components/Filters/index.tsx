@@ -10,10 +10,10 @@ export function Filters(): JSX.Element {
       <Checkbox filterType="STATE" name="MID_GAME" text="Mid-game" />
       <Checkbox filterType="STATE" name="LATE_GAME" text="Late-game" />
       <SC.Separator />
-      <Checkbox filterType="TYPE" name="BALANCER" text="Balancer" />
-      <Checkbox filterType="TYPE" name="SMELTING" text="Smelting" />
-      <Checkbox filterType="TYPE" name="TRAINS" text="Trains" />
-      <Checkbox filterType="TYPE" name="PRODUCTION" text="Production" />
+      <Checkbox filterType="CATEGORY" name="BALANCER" text="Balancer" />
+      <Checkbox filterType="CATEGORY" name="SMELTING" text="Smelting" />
+      <Checkbox filterType="CATEGORY" name="TRAINS" text="Trains" />
+      <Checkbox filterType="CATEGORY" name="PRODUCTION" text="Production" />
     </SC.FiltersWrapper>
   )
 }

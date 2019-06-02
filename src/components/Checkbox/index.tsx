@@ -1,11 +1,12 @@
 import React, { useState } from "react"
 import { useSearch } from "../../hooks/useSearch"
+import { Category, FilterType, State } from "../../types"
 import * as SC from "./styles"
 
 interface CheckboxProps {
-  filterType: string
+  filterType: FilterType
   text: string
-  name: string
+  name: State | Category
 }
 
 export function Checkbox({ text, name, filterType }: CheckboxProps): JSX.Element {
@@ -16,11 +17,11 @@ export function Checkbox({ text, name, filterType }: CheckboxProps): JSX.Element
     setChecked(prevState => !prevState)
 
     if (filterType === "STATE") {
-      searchActions.toggleStateFilter(name)
+      searchActions.toggleStateFilter(name as State)
     }
 
-    if (filterType === "TYPE") {
-      searchActions.toggleTypeFilter(name)
+    if (filterType === "CATEGORY") {
+      searchActions.toggleCategoryFilter(name as Category)
     }
   }
 

@@ -1,16 +1,8 @@
 import React, { useState } from "react"
+import { Build } from "./types"
 
 interface DataProviderProps {
   children: React.ReactNode
-}
-
-type State = "EARLY_GAME" | "MID_GAME" | "LATE_GAME"
-
-export interface Build {
-  blueprint: string
-  name: string
-  state: State
-  categories: string[]
 }
 
 const defaultBuilds: Build[] = [
