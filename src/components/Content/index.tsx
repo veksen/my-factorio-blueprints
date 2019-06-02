@@ -39,9 +39,15 @@ export function Content(): JSX.Element {
       })
   }
 
+  const buildsToDisplay = filteredBuilds(searchState, dataState.builds)
+
   return (
     <SC.ContentWrapper>
-      {filteredBuilds(searchState, dataState.builds).map(build => (
+      <SC.Count>
+        Displaying {buildsToDisplay.length} out of {dataState.builds.length} builds
+      </SC.Count>
+
+      {buildsToDisplay.map(build => (
         <Build key={build.name} build={build} />
       ))}
     </SC.ContentWrapper>
