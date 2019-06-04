@@ -1,14 +1,11 @@
-import React, { useState } from "react"
+import gql from "graphql-tag"
+import React, { useEffect, useState } from "react"
+import { useQuery } from "react-apollo-hooks"
 import { BuildI } from "./types"
 
 interface DataProviderProps {
   children: React.ReactNode
 }
-
-const defaultBuilds: BuildI[] = [
-  { name: "build1", blueprint: "adadwadwadwdaw", state: "EARLY_GAME", categories: ["BALANCER"] },
-  { name: "build2", blueprint: "asdf", state: "LATE_GAME", categories: ["SMELTING"] }
-]
 
 export interface DataContextInterface {
   state: {
@@ -21,8 +18,33 @@ export interface DataContextInterface {
 
 export const DataContext = React.createContext<DataContextInterface | null>(null)
 
+const GET_BUILDS = gql`
+  query {
+    builds {
+      id
+      name
+      blueprint
+      state
+      categories {
+        category {
+          key
+          name
+        }
+      }
+    }
+  }
+`
+
 export function DataProvider({ children }: DataProviderProps): JSX.Element {
-  const [builds, setBuilds] = useState<BuildI[]>(defaultBuilds)
+  const { data } = useQuery(GET_BUILDS)
+  const [builds, setBuilds] = useState<BuildI[]>([])
+
+  useEffect(() => {
+    if (data.builds) {
+      // flattening categories to make them easier to filter
+      init(data.builds.map((b: any) => ({ ...b, categories: b.categories.map(({ category }: any) => category.key) })))
+    }
+  }, [data])
 
   function init(initialBuilds: BuildI[]): void {
     setBuilds(initialBuilds)
