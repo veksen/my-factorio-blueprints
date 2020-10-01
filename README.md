@@ -42,3 +42,27 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Dockerfile
+
+The multistage Dockerfile provides a `dev` target appropriate for local development, and a `prod` target, which copies the static build artifacts into a nginx image appropriate for a container workload environment such as Cloud Run, ECS Fargate, or K8s.
+
+### Prod Build
+This runs a nginx web server with the static build assets. Locally, this should be accessible via `http://localhost:8080` (Adjust the port mapping value `8080` if necessary).
+```bash
+docker build -t my-factorio-blueprints .
+docker run -it -p "8080:80" --rm my-factorio-blueprints
+```
+### Dev Build
+This runs the development server as described by [npm start](#npm-start).
+Provide an alternate image name for `-t`, and set `--target` to `dev` to build a separate image. Locally, this should be accessible via `http://localhost:3000` (Adjust the port mapping value `3000` if necessary).
+```bash
+docker build -t my-factorio-blueprints-dev --target dev .
+docker run -it -p "3000:3000" --rm my-factorio-blueprints-dev
+```
+
+### Set a custom build image using build args
+
+```
+docker build -t my-factorio-blueprints --build-arg BUILD_IMAGE=node:current-alpine .
+```
